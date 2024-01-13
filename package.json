@@ -5,7 +5,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migration:push": "node -r esbuild-register db/migrate.ts"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
@@ -16,14 +17,17 @@
     "@types/react": "18.2.33",
     "@types/react-dom": "18.2.14",
     "@vercel/analytics": "^1.1.1",
-    "@vercel/postgres": "^0.5.0",
+    "@vercel/postgres": "^0.5.1",
     "autoprefixer": "^10.4.16",
+    "dotenv": "^16.3.1",
+    "drizzle-orm": "^0.29.3",
     "eslint": "8.52.0",
     "eslint-config-next": "14.0.0",
     "js-cookie": "^3.0.5",
     "next": "14.0.0",
     "next-auth": "5.0.0-beta.3",
     "postcss": "^8.4.31",
+    "postgres": "^3.4.3",
     "prettier": "^3.0.3",
     "prop-types": "^15.8.1",
     "react": "18.2.0",
@@ -37,5 +41,8 @@
     "singleQuote": true,
     "tabWidth": 2,
     "trailingComma": "none"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.20.12"
   }
 }
