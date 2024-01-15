@@ -1,5 +1,5 @@
 
-import { serial, text, timestamp, boolean, pgTable, numeric, primaryKey, integer } from "drizzle-orm/pg-core";
+import { serial, text, timestamp, boolean, pgTable, numeric, primaryKey, unique,integer } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import {z} from 'zod';
 
@@ -118,3 +118,18 @@ export const groupExpenses = pgTable("group_expense", {
 export const selectGroupExpenseSchema = createSelectSchema(groupExpenses);
 
 export const insertGroupExpenseSchema = createInsertSchema(groupExpenses);
+
+export const friend = pgTable("friend", {
+  id: serial("id"),
+  friend1: integer("friend_1").references(() => user.id),
+  friend2: integer("friend_2").references(() => user.id),
+}, (table) => {
+    return {
+      unk: unique("friend_uk").on(table.friend1, table.friend2)
+    }
+  }
+);
+
+export const selectFriendSchema = createSelectSchema(friend);
+
+export const insertFriendSchema = createInsertSchema(friend);
