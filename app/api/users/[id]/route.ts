@@ -1,13 +1,13 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import {db} from '../../../db';
-import { insertUserSchema, user } from "../../../db/schema";
+import {db} from 'db';
 import { getUserById } from "queries/user/query";
+import { insertUserSchema, user } from "db/schema";
 
-export async function GET(req: NextRequest) {
-
+export async function GET(req: NextRequest, { params } : {params: { id: number}}) {
+  const { id } = params;
   try {
-    const result = await db.select().from(user); 
+    const result = await getUserById(id);
     return NextResponse.json(result);
   }catch (err) {
     console.log(err);
@@ -20,13 +20,8 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const newUser = insertUserSchema.parse(body);
     
-    const data = await db.insert(user).values(newUser).returning({ id: user.id });
-    
-    if(data[0] !== undefined) {
-      return NextResponse.json(await getUserById(data[0].id), {status: 200});
-    }else {
-      throw("User created, but failed getting its id.")
-    }
+    const result = await db.insert(user).values(newUser).returning();
+    return NextResponse.json(result, {status: 200});
   }catch(err) {
     console.log(err);
     return NextResponse.json({error: "failed to load data"}, {status: 500});

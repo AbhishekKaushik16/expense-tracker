@@ -1,6 +1,6 @@
 {
-  "id": "aac108b2-2bff-441f-9131-754775d79fff",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "779186bd-a0b5-40b5-8c9c-fe1665c87d18",
+  "prevId": "753a3f72-a7e3-4ba2-a984-7abb6d241241",
   "version": "5",
   "dialect": "pg",
   "tables": {
@@ -22,6 +22,12 @@
         },
         "expense_id": {
           "name": "expense_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "group_id": {
+          "name": "group_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
@@ -72,6 +78,19 @@
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
+        },
+        "balance_group_id_group_id_fk": {
+          "name": "balance_group_id_group_id_fk",
+          "tableFrom": "balance",
+          "tableTo": "group",
+          "columnsFrom": [
+            "group_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {
@@ -98,11 +117,17 @@
           "name": "title",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "amount": {
           "name": "amount",
           "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "details": {
+          "name": "details",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
@@ -110,13 +135,20 @@
           "name": "payer_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "group_id": {
           "name": "group_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
+        },
+        "split_equally": {
+          "name": "split_equally",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
         },
         "created_at": {
           "name": "created_at",
@@ -140,6 +172,12 @@
         "updated_by": {
           "name": "updated_by",
           "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
           "primaryKey": false,
           "notNull": false
         },

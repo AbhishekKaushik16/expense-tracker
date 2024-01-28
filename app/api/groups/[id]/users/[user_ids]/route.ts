@@ -5,9 +5,10 @@ import { and, eq, inArray } from "drizzle-orm";
 // TODO: check if group and users exists
 //
 //
-export async function PUT (req: NextRequest, {params}: {params: {group_id: number, user_ids: string}}) {
-  const groupId = params.group_id;
+export async function PUT (req: NextRequest, {params}: {params: {id: number, user_ids: string}}) {
+  const groupId = params.id;
   const userIds = params.user_ids?.split(",") || [];
+  console.log(groupId, userIds)
   try {
     const data = userIds.map(userId => insertGroupMembersSchema.parse({userId: parseInt(userId), groupId}));
     console.log(data);

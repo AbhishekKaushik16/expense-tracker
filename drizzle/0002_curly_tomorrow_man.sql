@@ -1,0 +1,1 @@
+ALTER TABLE "expense" ADD COLUMN "deleted_at" timestamp;

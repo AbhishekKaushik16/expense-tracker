@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
-import {db} from '../../../../db';
-import { friend } from "../../../../db/schema";
+import {db} from 'db';
+import { friend } from "db/schema";
 import { eq } from "drizzle-orm";
 
 export async function GET(req: NextRequest, {params} : {params: {user_id: number}}) {

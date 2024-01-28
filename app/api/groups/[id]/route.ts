@@ -1,13 +1,11 @@
 import { type NextRequest, NextResponse } from "next/server";
-import {db} from '../../../../db';
-import { group } from "../../../../db/schema";
-import { eq } from "drizzle-orm";
+import { getGroupById } from "queries/group/queries";
 
 
 export async function GET(req: NextRequest, {params}: {params: {id: number}}) {
   const id = params.id;
   try {
-    const result = await db.select().from(group).where(eq(group.id, id));
+    const result = await getGroupById(id);
     return NextResponse.json(result);
   }catch(err) {
     console.log(err);
